@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City IoT Management Platform | Cisco Ready</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__brand">
+                <div class="brand-icon">🏙️</div>
+                <div class="brand-content">
+                    <h1 class="brand-title">Smart City IoT Platform</h1>
+                    <p class="brand-subtitle">Enterprise Management Console</p>
+                </div>
+            </div>
+            <div class="header__status">
+                <div class="network-status">
+                    <span class="status-indicator status-indicator--success"></span>
+                    <span class="status-text">Network Health: <span id="networkHealth">98.2%</span></span>
+                </div>
+                <div class="timestamp">
+                    <span id="currentTime">--:--:--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="main-content">
+            <!-- Overview Cards -->
+            <section class="overview-section">
+                <div class="overview-grid">
+                    <div class="overview-card overview-card--devices">
+                        <div class="overview-card__icon">📡</div>
+                        <div class="overview-card__content">
+                            <div class="overview-card__label">Active Devices</div>
+                            <div class="overview-card__value" id="activeDevices">2,795</div>
+                            <div class="overview-card__status">
+                                <span id="totalDevices">2,847</span> total
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card overview-card--alerts">
+                        <div class="overview-card__icon">⚠️</div>
+                        <div class="overview-card__content">
+                            <div class="overview-card__label">Critical Alerts</div>
+                            <div class="overview-card__value" id="criticalAlerts">3</div>
+                            <div class="overview-card__status">
+                                <span id="warningAlerts">12</span> warnings
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card overview-card--network">
+                        <div class="overview-card__icon">🌐</div>
+                        <div class="overview-card__content">
+                            <div class="overview-card__label">Data Usage</div>
+                            <div class="overview-card__value" id="dataUsage">1.2 TB</div>
+                            <div class="overview-card__status">
+                                per day
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card overview-card--latency">
+                        <div class="overview-card__icon">⚡</div>
+                        <div class="overview-card__content">
+                            <div class="overview-card__label">Avg Latency</div>
+                            <div class="overview-card__value" id="avgLatency">15ms</div>
+                            <div class="overview-card__status">
+                                real-time
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Device Types Filter -->
+            <section class="device-filter-section">
+                <div class="device-filter">
+                    <h3 class="filter-title">Device Types</h3>
+                    <div class="filter-buttons" id="deviceFilters">
+                        <button class="filter-btn filter-btn--active" data-type="all">
+                            <span class="filter-count" id="allCount">2,847</span>
+                            <span class="filter-label">All Devices</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- City Map and Data Feed -->
+            <section class="map-data-section">
+                <div class="map-data-grid">
+                    <!-- Interactive City Map -->
+                    <div class="city-map-container">
+                        <div class="section-header">
+                            <h3>City Device Map</h3>
+                            <div class="map-controls">
+                                <button class="btn btn--sm" id="refreshMap">🔄 Refresh</button>
+                            </div>
+                        </div>
+                        <div class="city-map" id="cityMap">
+                            <!-- Map grid will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Live Data Feed -->
+                    <div class="data-feed-container">
+                        <div class="section-header">
+                            <h3>Live Data Feed</h3>
+                            <div class="feed-status">
+                                <span class="status-dot"></span>
+                                <span>Real-time</span>
+                            </div>
+                        </div>
+                        <div class="data-feed" id="dataFeed">
+                            <!-- Feed items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alerts and Analytics -->
+            <section class="alerts-analytics-section">
+                <div class="alerts-analytics-grid">
+                    <!-- Alerts Panel -->
+                    <div class="alerts-panel">
+                        <div class="section-header">
+                            <h3>Active Alerts</h3>
+                            <button class="btn btn--sm btn--outline" id="clearAlerts">Clear All</button>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <!-- Alerts will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Analytics Charts -->
+                    <div class="analytics-panel">
+                        <div class="section-header">
+                            <h3>System Analytics</h3>
+                            <select class="form-control form-control--sm" id="analyticsRange">
+                                <option value="7d">Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="90d">Last 90 Days</option>
+                            </select>
+                        </div>
+                        <div class="analytics-charts">
+                            <div class="chart-container">
+                                <h4 class="chart-title">Device Uptime (%)</h4>
+                                <div class="chart-wrapper" style="position: relative; height: 200px;">
+                                    <canvas id="uptimeChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <h4 class="chart-title">Network Latency (ms)</h4>
+                                <div class="chart-wrapper" style="position: relative; height: 200px;">
+                                    <canvas id="latencyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Device Detail Modal -->
+        <div class="modal hidden" id="deviceModal">
+            <div class="modal__backdrop" id="modalBackdrop"></div>
+            <div class="modal__content">
+                <div class="modal__header">
+                    <h3 id="modalDeviceTitle">Device Details</h3>
+                    <button class="modal__close" id="modalClose">×</button>
+                </div>
+                <div class="modal__body" id="modalDeviceBody">
+                    <!-- Device details will be populated by JavaScript -->
+                </div>
+                <div class="modal__footer">
+                    <button class="btn btn--outline" id="modalCloseBtn">Close</button>
+                    <button class="btn btn--primary" id="modalActionBtn">Take Action</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__content">
+                <p class="footer__text">Smart City IoT Management Platform | Enterprise Ready | Cisco Compatible</p>
+                <div class="footer__stats">
+                    <span>Monitoring <strong id="footerDeviceCount">2,847</strong> devices across <strong>12</strong> districts</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
